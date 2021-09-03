@@ -7,7 +7,7 @@ async function subscribe(message) {
     let success = database.subscribeUser(userObj.id, userObj.first_name, userObj.username, userObj.type);
     console.log(success);
     if (success) {
-        await telegram.sendMessage(userObj.id, 'Glückwunsch, du hast dich Erfolgreich angemeldet! Schreibe /unsubscribe um dich wieder abzumelden.');
+        await telegram.sendMessage(userObj.id, 'Glückwunsch, du hast dich Erfolgreich angemeldet! Du wirst jetzt bei jeder neuen Immobilien-Anzeige benachrichtigt. Schreibe /unsubscribe um dich wieder abzumelden.');
     } else {
         await telegram.sendMessage(userObj.id, 'Du bist bereits Angemeldet! Schreibe /unsubscribe um dich wieder abzumelden.');
     }
@@ -21,7 +21,7 @@ async function unsubscribe(message) {
     let success = database.unsubscribeUser(userObj.id);
     console.log(success);
     if (success) {
-        await telegram.sendMessage(userObj.id, 'Glückwunsch, du hast dich Erfolgreich abgemeldet! Schreibe /subscribe um dich wieder anzumelden.');
+        await telegram.sendMessage(userObj.id, 'Glückwunsch, du hast dich Erfolgreich abgemeldet! Du wirst jetzt nicht mehr benachrichtig. Schreibe /subscribe um dich wieder anzumelden.');
     } else {
         await telegram.sendMessage(userObj.id, 'Du bist noch nicht angemeldet! Schreibe /subscribe um dich anzumelden.');
     }
