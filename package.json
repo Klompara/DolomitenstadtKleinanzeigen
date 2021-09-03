@@ -4,7 +4,7 @@
   "description": "Telegram Bot um aktuelle Immobilien-Kleinanzeigen-Benachrichtigungen zu bekommen",
   "main": "index.js",
   "scripts": {
-    "start": "node -r dotenv/config index.js"
+    "start": "node index.js"
   },
   "author": "Michael Kleinlercher",
   "license": "ISC",

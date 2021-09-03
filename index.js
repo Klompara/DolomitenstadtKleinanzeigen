@@ -3,8 +3,7 @@ const app = express();
 const port = process.env.PORT || 6969;
 const bodyParser = require('body-parser');
 const handler = require('./commandHandler');
-
-require('dotenv').config() // load environmental variables
+if (app.get('env') == 'development') { require('dotenv').config(); } // load environmental variables, local testing
 
 app.use(bodyParser.json());
 
