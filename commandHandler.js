@@ -3,26 +3,15 @@ const telegram = require('./telegramInterface');
 
 async function subscribe(message) {
     let userObj = message.chat;
-
     let success = database.subscribeUser(userObj.id, userObj.first_name, userObj.username, userObj.type);
-    if (success) {
-        await telegram.sendMessage(userObj.id, 'Glückwunsch, du hast dich Erfolgreich angemeldet! Du wirst jetzt bei jeder neuen Immobilien-Anzeige benachrichtigt. Schreibe /unsubscribe um dich wieder abzumelden.');
-    } else {
-        await telegram.sendMessage(userObj.id, 'Du bist bereits Angemeldet! Schreibe /unsubscribe um dich wieder abzumelden.');
-    }
-
+    await telegram.sendMessage(userObj.id, success ? global.messageSubscribeSuccess : global.messageSubscribeAlready);
     await checkSendImmobilien();
 }
 
 async function unsubscribe(message) {
     let userObj = message.chat;
-
     let success = database.unsubscribeUser(userObj.id);
-    if (success) {
-        await telegram.sendMessage(userObj.id, 'Glückwunsch, du hast dich Erfolgreich abgemeldet! Du wirst jetzt nicht mehr benachrichtig. Schreibe /subscribe um dich wieder anzumelden.');
-    } else {
-        await telegram.sendMessage(userObj.id, 'Du bist noch nicht angemeldet! Schreibe /subscribe um dich anzumelden.');
-    }
+    await telegram.sendMessage(userObj.id, success ? global.messageUnsubscribeSuccess : messageUnsubscribeAlready);
 }
 
 async function checkSendImmobilien() {
