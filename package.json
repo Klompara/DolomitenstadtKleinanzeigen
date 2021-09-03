@@ -1,12 +1,12 @@
 {
   "name": "dolomitenstadtkleinanzeigen",
   "version": "1.0.0",
-  "description": "",
+  "description": "Telegram Bot um aktuelle Immobilien-Kleinanzeigen-Benachrichtigungen zu bekommen",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node -r dotenv/config index.js"
   },
-  "author": "",
+  "author": "Michael Kleinlercher",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
