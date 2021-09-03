@@ -1,14 +1,13 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 6969;
+const bodyParser = require('body-parser');
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
+app.use(bodyParser.json());
 
 app.post('/', (req, res) => {
     console.log(req.body);
-    res.send('Webhook endpoint');
+    res.send(req.body);
 });
 
 app.listen(port, () => {
