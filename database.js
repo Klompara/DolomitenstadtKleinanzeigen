@@ -24,10 +24,11 @@ function unsubscribeUser(userId) {
         console.log(`User ${userId} is not subscribed!`);
         return false;
     } else {
+        let name = users[userIndex].username;
         users.splice(userIndex, 1);
+        console.log(`User ${name} successfully unsubscribed!`);
     }
-
-    console.log(`User ${userId} successfully unsubscribed!`);
+    
     return true;
 }
 
