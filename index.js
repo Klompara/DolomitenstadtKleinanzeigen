@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 6969;
 const bodyParser = require('body-parser');
 const handler = require('./commandHandler');
-const scraper = require('./immobilienScraper');
+const scraper = require('./offerScraper');
 require('./globals');
 if (app.get('env') == 'development') { require('dotenv').config(); } // load environmental variables, local testing
 
@@ -15,6 +15,8 @@ app.post('/', async (req, res) => {
         handler.subscribe(message);
     } else if (message.text == '/unsubscribe') {
         handler.unsubscribe(message);
+    } else if (commands.find(command => command.command == message.text) != undefined) {
+        handler.toggleInterest(message);
     }
 
     res.send(req.body);
@@ -22,7 +24,7 @@ app.post('/', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Dolomitenstadt Immobilien-Kleinanzeigen service listening at http://localhost:${port}`);
-    setInterval(() => {
-        scraper.getAllCurrentImmobilien();
-    }, 10 * 60 * 60);
+    //setInterval(() => {
+    scraper.scrape();
+    //}, 10 * 60 * 60);
 })
