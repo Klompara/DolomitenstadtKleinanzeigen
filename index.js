@@ -10,7 +10,7 @@ if (app.get('env') == 'development') { require('dotenv').config(); } // load env
 
 app.use(bodyParser.json());
 
-app.post('/', async (req, res) => {
+app.post('/' + process.env.BOT_KEY, async (req, res) => {
     let message = req.body.message;
     if (message.text == '/start') {
         handler.subscribe(message);
