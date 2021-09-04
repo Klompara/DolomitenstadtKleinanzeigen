@@ -24,11 +24,11 @@ commands.forEach(command => {
 `;
 });
 messageSubscribeSuccess += `
-Schreibe /unsubscribe um dich wieder abzumelden.
+Schreibe /stop um dich wieder abzumelden.
 Mit /info kannst du deine Einstellungen ansehen`
-global.messageSubscribeAlready = `Du bist bereits Angemeldet! Schreibe /unsubscribe um dich wieder abzumelden.`
-global.messageUnsubscribeSuccess = 'Glückwunsch, du hast dich Erfolgreich abgemeldet! Du wirst jetzt nicht mehr benachrichtig. Schreibe /subscribe um dich wieder anzumelden.'
-global.messageUnsubscribeAlready = 'Du bist noch nicht angemeldet! Schreibe /subscribe um dich anzumelden.'
+global.messageSubscribeAlready = `Du bist bereits Angemeldet! Schreibe /stop um dich wieder abzumelden.`
+global.messageUnsubscribeSuccess = 'Glückwunsch, du hast dich Erfolgreich abgemeldet! Du wirst jetzt nicht mehr benachrichtig. Schreibe /start um dich wieder anzumelden.'
+global.messageUnsubscribeAlready = 'Du bist noch nicht angemeldet! Schreibe /start um dich anzumelden.'
 global.interestSubscribed = `Du wirst jetzt über <%interest%>-Kleinanzeigen benachrichtigt! Schreibe den gleichen Befehl nochmal um dich davon abzumelden.`
 global.interestUnsubscribed = `Du wirst jetzt nicht mehr über <%interest%>-Kleinanzeigen benachrichtigt!`
 global.infotext = `Du bekommst folgende Kleinanzeigen zugesendet:

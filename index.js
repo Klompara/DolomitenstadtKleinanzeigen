@@ -12,9 +12,9 @@ app.use(bodyParser.json());
 
 app.post('/', async (req, res) => {
     let message = req.body.message;
-    if (message.text == '/subscribe') {
+    if (message.text == '/start') {
         handler.subscribe(message);
-    } else if (message.text == '/unsubscribe') {
+    } else if (message.text == '/stop') {
         handler.unsubscribe(message);
     } else if (commands.find(command => command.command == message.text) != undefined) {
         handler.toggleInterest(message);
