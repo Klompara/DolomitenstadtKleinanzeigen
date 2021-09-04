@@ -16,7 +16,7 @@ function buildMessage(offer) {
         `${offer.title}
 ${offer.description}
 
-${offer.phone}
+${offer.phone || ''}
 Benutzer: ${offer.originalPoster}
 ${offer.createDate}
 `;
