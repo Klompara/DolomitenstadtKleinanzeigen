@@ -33,8 +33,8 @@ app.post('/' + process.env.BOT_KEY, async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Dolomitenstadt Kleinanzeigen service listening at http://localhost:${port}`);
-    function scheduler() {
-        scraper.scrape();
+    async function scheduler() {
+        await scraper.scrape();
         database.clearOldOffers();
         handler.checkSendOffer();
     }
