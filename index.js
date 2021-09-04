@@ -23,7 +23,7 @@ app.post('/', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Dolomitenstadt Immobilien-Kleinanzeigen service listening at http://localhost:${port}`);
+    console.log(`Dolomitenstadt Kleinanzeigen service listening at http://localhost:${port}`);
     //setInterval(() => {
     scraper.scrape();
     //}, 10 * 60 * 60);
