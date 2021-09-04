@@ -13,11 +13,11 @@ async function sendOffer(userId, offer) {
 
 function buildMessage(offer) {
     let msg =
-        `${offer.title}
+        `*${offer.title}*
 ${offer.description}
 
-${offer.phone || ''}
-Benutzer: ${offer.originalPoster}
+_${offer.phone || ''}_
+Benutzer: _${offer.originalPoster}_
 ${offer.createDate}
 `;
     return msg;
@@ -28,7 +28,7 @@ async function sendMessageWithImage(userId, msg, imgUrl) {
         chat_id: userId,
         caption: msg,
         photo: imgUrl,
-        parse_mode: 'Markdown'
+        parse_mode: 'markdown'
     }
 
     return sendMsg('sendPhoto', payload);
@@ -38,7 +38,7 @@ async function sendMessage(userId, msg) {
     let payload = {
         chat_id: userId,
         text: msg,
-        parse_mode: 'Markdown'
+        parse_mode: 'markdown'
     }
 
     return sendMsg('sendMessage', payload);
@@ -47,17 +47,14 @@ async function sendMessage(userId, msg) {
 async function sendMsg(method, payload) {
     return new Promise((resolve, rejects) => {
         let userId = payload.chat_id;
-        payload = JSON.stringify(payload);
 
+        let queryString = Object.keys(payload).map(key => key + '=' + payload[key]).join('&');
+        queryString = encodeURI(queryString);
         let options = {
             hostname: `api.telegram.org`,
             port: 443,
-            path: `/bot${process.env.BOT_KEY}/${method}`,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': payload.length
-            }
+            path: `/bot${process.env.BOT_KEY}/${method}?${queryString}`,
+            method: 'GET'
         };
 
         let request = https.request(options, (res) => {
@@ -68,7 +65,6 @@ async function sendMsg(method, payload) {
             console.log(`Error when sending message to user ${userId}: ${e}`);
             rejects(e);
         });
-        request.write(payload);
         request.end();
     });
 }
