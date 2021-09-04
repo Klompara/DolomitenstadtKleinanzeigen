@@ -80,8 +80,30 @@ function addOfferIfNotExists(scraped) {
     }
 }
 
+function clearOldOffers() {
+    let countBefore = offers.length;
+    offers = offers.filter(offer => new Date() - offer.scrapeDate > 1000 * 60 * 60 * 24 * 31) // remove offers older than 31 days
+    console.log(`Removed ${countBefore - offers.length} outdated offers`);
+}
+
+function getUser(userId) {
+    return users.find(user => user.userId == userId);
+}
+
+function getOffers() {
+    return offers;
+}
+
+function getUsers() {
+    return users;
+}
+
 module.exports.subscribeUser = subscribeUser;
 module.exports.unsubscribeUser = unsubscribeUser;
 module.exports.getUsersOffers = getUsersOffers;
 module.exports.addOfferIfNotExists = addOfferIfNotExists;
 module.exports.toggleInterest = toggleInterest;
+module.exports.clearOldOffers = clearOldOffers;
+module.exports.getUser = getUser;
+module.exports.getOffers = getOffers;
+module.exports.getUsers = getUsers;
