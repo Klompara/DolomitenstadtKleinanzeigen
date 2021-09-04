@@ -34,6 +34,26 @@ async function checkSendOffer() {
     }
 }
 
+async function sendInfo(message) {
+    let userObj = message.chat;
+    let user = database.getUser(userObj.id);
+    if (user == undefined) {
+        await telegram.sendMessage(userObj.id, messageUnsubscribeAlready);
+    } else {
+        let offers = database.getOffers();
+        let interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
+        let msg = infotext.replace('<%interests%>', interests).replace('<%offerCount%>', offers.length);
+        await telegram.sendMessage(userObj.id, msg);
+        if (userObj.id == process.env.ADMIN_ID) { // admin information
+            database.getUsers().forEach(user => {
+                interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
+                telegram.sendMessage(userObj.id, user.username + ', ' + user.name + ', ' + user.type + ', ' + user.userId + ', (' + interests + ')');
+            });
+        }
+    }
+}
+
 module.exports.subscribe = subscribe;
 module.exports.unsubscribe = unsubscribe;
 module.exports.toggleInterest = toggleInterest;
+module.exports.sendInfo = sendInfo;
