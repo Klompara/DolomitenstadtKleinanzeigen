@@ -39,5 +39,5 @@ app.listen(port, () => {
         handler.checkSendOffer();
     }
     scheduler();
-    setInterval(scheduler, 1000 * 60 * 10); // every 10 minutes
+    setInterval(scheduler, 1000 * 60 * refreshTimeMinutes);
 })

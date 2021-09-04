@@ -60,3 +60,5 @@ Wenn du dich wieder für einen Kleinanzeigen-Typ abmelden willst, gib den Befehl
 Mit /info kannst du sehen, für welche Kleinanzeigen-Typen du dich angemeldet hast.`
 global.allSubscribed = 'Du bekommst jetzt Benachrichtigungen von allen Kleinanzeigen'
 global.allUnsubscribed = 'Du bekommst keine Benachrichtigungen mehr'
+global.refreshTimeMinutes = 10;
+global.maxOffersAgeDays = 31;
