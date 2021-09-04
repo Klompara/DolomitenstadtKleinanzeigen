@@ -72,6 +72,17 @@ function getUsersOffers() {
     return usersToSend;
 }
 
+function addAllInterests(user) {
+    user.interests = [];
+    for (let i = 0; i < commands.length; i++) {
+        user.interests.push(commands[i].type);
+    }
+}
+
+function removeAllInterests(user) {
+    user.interests = [];
+}
+
 function addOfferIfNotExists(scraped) {
     for (let i = 0; i < scraped.length; i++) {
         if (offers.find(curr => curr.offerId == scraped[i].offerId) == undefined) {
@@ -107,3 +118,5 @@ module.exports.clearOldOffers = clearOldOffers;
 module.exports.getUser = getUser;
 module.exports.getOffers = getOffers;
 module.exports.getUsers = getUsers;
+module.exports.addAllInterests = addAllInterests;
+module.exports.removeAllInterests = removeAllInterests;

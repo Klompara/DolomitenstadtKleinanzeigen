@@ -29,6 +29,7 @@ async function checkSendOffer() {
         let useroffer = toSendOffers[i];
         for (let j = 0; j < useroffer.offers.length; j++) {
             let offer = useroffer.offers[j];
+            console.log(`Sending offer ${offer.offerId} to user ${useroffer.user.username}`);
             await telegram.sendOffer(useroffer.user.userId, offer);
         }
     }
@@ -54,8 +55,29 @@ async function sendInfo(message) {
 }
 
 async function sendHelp(message) {
-    console.log(message);
     await telegram.sendMessage(message.chat.id, msgHelp);
+}
+
+async function addAllInterests(message) {
+    let user = database.getUser(message.chat.id);
+    if (user == undefined) {
+        await telegram.sendMessage(message.chat.id, messageUnsubscribeAlready);
+    } else {
+        await telegram.sendMessage(message.chat.id, allSubscribed);
+        database.addAllInterests(user);
+        await checkSendOffer();
+    }
+}
+
+async function removeAllinterests(message) {
+    let user = database.getUser(message.chat.id);
+    if (user == undefined) {
+        await telegram.sendMessage(message.chat.id, messageUnsubscribeAlready);
+    } else {
+        await telegram.sendMessage(message.chat.id, allUnsubscribed);
+        database.removeAllInterests(user);
+        await checkSendOffer();
+    }
 }
 
 module.exports.subscribe = subscribe;
@@ -63,3 +85,6 @@ module.exports.unsubscribe = unsubscribe;
 module.exports.toggleInterest = toggleInterest;
 module.exports.sendInfo = sendInfo;
 module.exports.sendHelp = sendHelp;
+module.exports.removeAllinterests = removeAllinterests;
+module.exports.addAllInterests = addAllInterests;
+module.exports.checkSendOffer = checkSendOffer;

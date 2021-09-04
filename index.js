@@ -22,6 +22,10 @@ app.post('/', async (req, res) => {
         handler.sendInfo(message);
     } else if (message.text == '/help') {
         handler.sendHelp(message);
+    } else if (message.text == '/alle') {
+        handler.addAllInterests(message);
+    } else if (message.text == '/keine') {
+        handler.removeAllinterests(message);
     }
 
     res.send(req.body);
@@ -32,6 +36,7 @@ app.listen(port, () => {
     function scheduler() {
         scraper.scrape();
         database.clearOldOffers();
+        handler.checkSendOffer();
     }
     scheduler();
     setInterval(scheduler, 1000 * 60 * 10); // every 10 minutes

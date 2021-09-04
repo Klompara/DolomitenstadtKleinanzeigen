@@ -25,7 +25,7 @@ commands.forEach(command => {
 });
 messageSubscribeSuccess += `
 Schreibe /stop um dich wieder abzumelden.
-Mit /info kannst du deine Einstellungen ansehen`
+Mit /info kannst du deine Einstellungen und mit /help die Bedienungsanleitung ansehen.`
 global.messageSubscribeAlready = `Du bist bereits Angemeldet! Schreibe /stop um dich wieder abzumelden.`
 global.messageUnsubscribeSuccess = 'Glückwunsch, du hast dich Erfolgreich abgemeldet! Du wirst jetzt nicht mehr benachrichtig. Schreibe /start um dich wieder anzumelden.'
 global.messageUnsubscribeAlready = 'Du bist noch nicht angemeldet! Schreibe /start um dich anzumelden.'
@@ -38,7 +38,8 @@ Momentane Anzahl von Kleinanzeigen: <%offerCount%>`;
 global.msgHelp = `
 /start um Benachrichtigungen über aktuelle Kleinanzeigen zu bekommen
 /stop um keine Benachrichtigungen mehr zu bekommen
-
+/alle um sich alle Kleinanzeigen-Typen anzumelden (achtung Spam)
+/keine um sich von allen Kleinanzeigen-Typen abzumelden
 Mit folgenden Befehlen kannst du dir die Kleinanzeigen-Typen auswählen, über die du benachrichtigt werden willst.
 `
 commands.forEach(command => {
@@ -50,3 +51,5 @@ Wenn du zum Beispiel für Immobilien Interesse hast, gib einfach /immobilien ein
 Wenn du dich wieder für einen Kleinanzeigen-Typ abmelden willst, gib den Befehl einfach nochmal ein.
 
 Mit /info kannst du sehen, für welche Kleinanzeigen-Typen du dich angemeldet hast.`
+global.allSubscribed = 'Du bekommst jetzt Benachrichtigungen von allen Kleinanzeigen'
+global.allUnsubscribed = 'Du bekommst keine Benachrichtigungen mehr'
