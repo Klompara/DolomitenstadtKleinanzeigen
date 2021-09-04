@@ -20,6 +20,8 @@ app.post('/', async (req, res) => {
         handler.toggleInterest(message);
     } else if (message.text == '/info') {
         handler.sendInfo(message);
+    } else if (message.text == '/help') {
+        handler.sendHelp(message);
     }
 
     res.send(req.body);

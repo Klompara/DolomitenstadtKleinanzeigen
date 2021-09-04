@@ -35,3 +35,18 @@ global.infotext = `Du bekommst folgende Kleinanzeigen zugesendet:
 <%interests%>
 
 Momentane Anzahl von Kleinanzeigen: <%offerCount%>`;
+global.msgHelp = `
+/start um Benachrichtigungen über aktuelle Kleinanzeigen zu bekommen
+/stop um keine Benachrichtigungen mehr zu bekommen
+
+Mit folgenden Befehlen kannst du dir die Kleinanzeigen-Typen auswählen, über die du benachrichtigt werden willst.
+`
+commands.forEach(command => {
+    msgHelp += command.command + `
+`;
+});
+msgHelp += `
+Wenn du zum Beispiel für Immobilien Interesse hast, gib einfach /immobilien ein.
+Wenn du dich wieder für einen Kleinanzeigen-Typ abmelden willst, gib den Befehl einfach nochmal ein.
+
+Mit /info kannst du sehen, für welche Kleinanzeigen-Typen du dich angemeldet hast.`

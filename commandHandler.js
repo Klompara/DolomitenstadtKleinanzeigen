@@ -53,7 +53,13 @@ async function sendInfo(message) {
     }
 }
 
+async function sendHelp(message) {
+    console.log(message);
+    await telegram.sendMessage(message.chat.id, msgHelp);
+}
+
 module.exports.subscribe = subscribe;
 module.exports.unsubscribe = unsubscribe;
 module.exports.toggleInterest = toggleInterest;
 module.exports.sendInfo = sendInfo;
+module.exports.sendHelp = sendHelp;
