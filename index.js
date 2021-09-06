@@ -13,19 +13,19 @@ app.use(bodyParser.json());
 app.post('/' + process.env.BOT_KEY, async (req, res) => {
     let message = req.body.message;
     if (message.text == '/start') {
-        handler.subscribe(message);
+        await handler.subscribe(message);
     } else if (message.text == '/stop') {
-        handler.unsubscribe(message);
+        await handler.unsubscribe(message);
     } else if (commands.find(command => command.command == message.text) != undefined) {
-        handler.toggleInterest(message);
+        await handler.toggleInterest(message);
     } else if (message.text == '/info') {
-        handler.sendInfo(message);
+        await handler.sendInfo(message);
     } else if (message.text == '/help') {
-        handler.sendHelp(message);
+        await handler.sendHelp(message);
     } else if (message.text == '/alle') {
-        handler.addAllInterests(message);
+        await handler.addAllInterests(message);
     } else if (message.text == '/keine') {
-        handler.removeAllinterests(message);
+        await handler.removeAllinterests(message);
     }
 
     await database.saveToRedis();
