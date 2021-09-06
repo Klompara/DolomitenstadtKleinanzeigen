@@ -31,12 +31,14 @@ app.post('/' + process.env.BOT_KEY, async (req, res) => {
     res.send(req.body);
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
     console.log(`Dolomitenstadt Kleinanzeigen service listening at http://localhost:${port}`);
+    await database.initDatabase();
     async function scheduler() {
         await scraper.scrape();
         database.clearOldOffers();
         handler.checkSendOffer();
+        await database.saveToRedis();
     }
     scheduler();
     setInterval(scheduler, 1000 * 60 * refreshTimeMinutes);

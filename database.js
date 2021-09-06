@@ -1,5 +1,32 @@
-let users = [];
-let offers = [];
+const redisLibrary = require('redis');
+let users;
+let offers;
+let client;
+
+async function initDatabase() {
+    client = redisLibrary.createClient({
+        socket: {
+            url: process.env.REDIS_CON
+        }
+    });
+
+    client.on('error', (err) => console.log('Redis Client Error', err));
+
+    await client.connect();
+
+    let usersStr = await client.get('users');
+    let offersStr = await client.get('offers');
+    users = JSON.parse(usersStr);
+    offers = JSON.parse(offersStr);
+    console.log(`Loaded Redis data: [users:${users.length}] [offers:${offers.length}]`);
+}
+
+async function saveToRedis() {
+    let startTimeStamp = new Date();
+    await client.set('users', JSON.stringify(users));
+    await client.set('offers', JSON.stringify(offers));
+    console.log(`Saved to Redis, duration: ${(new Date() - startTimeStamp) / 1000} seconds`);
+}
 
 // return status message which is send to user
 function toggleInterest(userId, interest) {
@@ -120,3 +147,5 @@ module.exports.getOffers = getOffers;
 module.exports.getUsers = getUsers;
 module.exports.addAllInterests = addAllInterests;
 module.exports.removeAllInterests = removeAllInterests;
+module.exports.initDatabase = initDatabase;
+module.exports.saveToRedis = saveToRedis;
