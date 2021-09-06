@@ -28,6 +28,8 @@ app.post('/' + process.env.BOT_KEY, async (req, res) => {
         handler.removeAllinterests(message);
     }
 
+    await database.saveToRedis();
+
     res.send(req.body);
 });
 
