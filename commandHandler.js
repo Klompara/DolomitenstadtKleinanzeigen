@@ -6,6 +6,7 @@ async function subscribe(message) {
     let success = database.subscribeUser(userObj.id, userObj.first_name, userObj.username, userObj.type);
     await telegram.sendMessage(userObj.id, success ? global.messageSubscribeSuccess : global.messageSubscribeAlready);
     await checkSendOffer();
+    await database.saveToRedis();
 }
 
 async function unsubscribe(message) {
@@ -13,6 +14,7 @@ async function unsubscribe(message) {
     let success = database.unsubscribeUser(userObj.id);
     await telegram.sendMessage(userObj.id, success ? global.messageUnsubscribeSuccess : messageUnsubscribeAlready);
     await checkSendOffer();
+    await database.saveToRedis();
 }
 
 async function toggleInterest(message) {
@@ -21,6 +23,7 @@ async function toggleInterest(message) {
     let responseMessage = database.toggleInterest(userObj.id, interest);
     await telegram.sendMessage(userObj.id, responseMessage);
     await checkSendOffer();
+    await database.saveToRedis();
 }
 
 async function checkSendOffer() {
@@ -33,6 +36,7 @@ async function checkSendOffer() {
             await telegram.sendOffer(useroffer.user.userId, offer);
         }
     }
+    await database.saveToRedis();
 }
 
 async function sendInfo(message) {
@@ -67,6 +71,7 @@ async function addAllInterests(message) {
         database.addAllInterests(user);
         await checkSendOffer();
     }
+    await database.saveToRedis();
 }
 
 async function removeAllinterests(message) {
@@ -78,6 +83,7 @@ async function removeAllinterests(message) {
         database.removeAllInterests(user);
         await checkSendOffer();
     }
+    await database.saveToRedis();
 }
 
 module.exports.subscribe = subscribe;
