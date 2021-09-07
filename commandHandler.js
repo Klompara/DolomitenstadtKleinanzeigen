@@ -54,9 +54,6 @@ function sendAdminInfo(id) {
         database.getUsers().forEach(user => {
             telegram.sendMessage(id, JSON.stringify(user));
         });
-        database.getOffers().forEach(offer => {
-            telegram.sendMessage(id, JSON.stringify(offer));
-        });
     }
 }
 
