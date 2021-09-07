@@ -58,7 +58,7 @@ Wenn du zum Beispiel für Immobilien Interesse hast, gib einfach */immobilien* e
 Wenn du dich wieder für einen Kleinanzeigen-Typ abmelden willst, gib den Befehl einfach nochmal ein.
 
 Mit */info* kannst du sehen, für welche Kleinanzeigen-Typen du dich angemeldet hast.`
-global.allSubscribed = 'Du bekommst jetzt Benachrichtigungen von allen Kleinanzeigen'
-global.allUnsubscribed = 'Du bekommst keine Benachrichtigungen mehr'
+global.allSubscribed = 'Du bekommst jetzt Benachrichtigungen von allen Kleinanzeigen!'
+global.allUnsubscribed = 'Du hast dich von allen Kleinanzeigen-Typen abgemeldet!'
 global.refreshTimeMinutes = 10;
 global.maxOffersAgeDays = 31;

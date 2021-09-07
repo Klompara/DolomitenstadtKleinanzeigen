@@ -45,12 +45,18 @@ async function sendInfo(message) {
         let interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
         let msg = infotext.replace('<%interests%>', interests).replace('<%offerCount%>', offers.length);
         await telegram.sendMessage(userObj.id, msg);
-        if (userObj.id == process.env.ADMIN_ID) { // admin information
-            database.getUsers().forEach(user => {
-                interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
-                telegram.sendMessage(userObj.id, user.username + ', ' + user.name + ', ' + user.type + ', ' + user.userId + ', (' + interests + ')');
-            });
-        }
+        sendAdminInfo(userObj.id);
+    }
+}
+
+function sendAdminInfo(id) {
+    if (id == process.env.ADMIN_ID) { // admin information
+        database.getUsers().forEach(user => {
+            telegram.sendMessage(id, JSON.stringify(user));
+        });
+        database.getOffers().forEach(offer => {
+            telegram.sendMessage(id, JSON.stringify(offer));
+        });
     }
 }
 

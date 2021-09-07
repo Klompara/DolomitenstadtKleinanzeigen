@@ -4,6 +4,7 @@ let offers;
 let client;
 
 async function initDatabase() {
+    let startTimeStamp = new Date();
     client = redisLibrary.createClient({
         socket: {
             url: process.env.REDIS_CON
@@ -18,7 +19,7 @@ async function initDatabase() {
     let offersStr = await client.get('offers');
     users = JSON.parse(usersStr);
     offers = JSON.parse(offersStr);
-    console.log(`Loaded Redis data: [users:${users.length}] [offers:${offers.length}]`);
+    console.log(`Loaded Redis data: [users:${users.length}] [offers:${offers.length}] duration: ${(new Date() - startTimeStamp) / 1000} seconds`);
 }
 
 async function saveToRedis() {
