@@ -19,6 +19,9 @@ async function initDatabase() {
     let offersStr = await client.get('offers');
     users = JSON.parse(usersStr);
     offers = JSON.parse(offersStr);
+    for (let i = 0; i < offers.length; i++) {
+        offers[i].scrapeDate = new Date(offers[i].scrapeDate); // Dates are not parsed
+    }
     console.log(`Loaded Redis data: [users:${users.length}] [offers:${offers.length}] duration: ${(new Date() - startTimeStamp) / 1000} seconds`);
 }
 
