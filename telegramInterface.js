@@ -1,7 +1,5 @@
 const https = require('https');
 
-
-
 async function sendOffer(userId, offer) {
     let msg = buildMessage(offer);
     if (offer.imageUrl != undefined) {
