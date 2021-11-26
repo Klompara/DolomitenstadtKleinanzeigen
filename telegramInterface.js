@@ -17,6 +17,7 @@ ${offer.description}
 _${offer.phone || ''}_
 Benutzer: _${offer.originalPoster}_
 ${offer.createDate}
+[Link](https://www.dolomitenstadt.at/kleinanzeigen/#kleinanzeige-${offer.offerId})
 `;
     return msg;
 }
