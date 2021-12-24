@@ -52,10 +52,10 @@ async function sendInfo(message) {
 async function sendAdminInfo(id) {
     if (id == process.env.ADMIN_ID) { // admin information
         let users = database.getUsers();
-        for(let i = 0; i < users.length; i++) {
-            let user = users[i];
-            let interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
-            let msg = 'userid: ' + user.userId + '\nname: ' + user.name + '\nusername: ' + user.username + '\ntype: ' + user.type + '\ninterests:\n\t' + interests
+        for (let i = 0; i < users.length; i++) {
+            //let user = users[i];
+            //let interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
+            let msg = JSON.stringify(users[i]);//'userid: ' + user.userId + '\nname: ' + user.name + '\nusername: ' + user.username + '\ntype: ' + user.type + '\ninterests:\n\t' + interests
             await telegram.sendMessage(id, msg);
         }
     }
