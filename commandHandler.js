@@ -55,7 +55,7 @@ async function sendAdminInfo(id) {
         for (let i = 0; i < users.length; i++) {
             //let user = users[i];
             //let interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
-            let msg = JSON.stringify(users[i]);//'userid: ' + user.userId + '\nname: ' + user.name + '\nusername: ' + user.username + '\ntype: ' + user.type + '\ninterests:\n\t' + interests
+            let msg = '```' + JSON.stringify(users[i]) + '```';//'userid: ' + user.userId + '\nname: ' + user.name + '\nusername: ' + user.username + '\ntype: ' + user.type + '\ninterests:\n\t' + interests
             await telegram.sendMessage(id, msg);
         }
     }
