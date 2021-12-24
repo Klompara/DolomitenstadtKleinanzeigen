@@ -53,7 +53,7 @@ async function sendAdminInfo(id) {
     if (id == process.env.ADMIN_ID) { // admin information
         let users = database.getUsers();
         for (let i = 0; i < users.length; i++) {
-            let msg = Object.entries(flattenObject(user)).map(([key, value]) => key + ':' + value).join('\n');
+            let msg = Object.entries(flattenObject(users[i])).map(([key, value]) => key + ':' + value).join('\n');
             await telegram.sendMessage(id, msg);
         }
     }
