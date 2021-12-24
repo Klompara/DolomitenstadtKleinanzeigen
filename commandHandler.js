@@ -49,12 +49,12 @@ async function sendInfo(message) {
     }
 }
 
-function sendAdminInfo(id) {
+async function sendAdminInfo(id) {
     if (id == process.env.ADMIN_ID) { // admin information
         database.getUsers().forEach(user => {
             let interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
             let msg = 'userid: ' + user.userId + '\nname: ' + user.name + '\nusername: ' + user.username + '\ntype: ' + user.type + '\ninterests:\n\t' + interests
-            telegram.sendMessage(id, msg);
+            await telegram.sendMessage(id, msg);
         });
     }
 }
