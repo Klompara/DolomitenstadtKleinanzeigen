@@ -53,28 +53,10 @@ async function sendAdminInfo(id) {
     if (id == process.env.ADMIN_ID) { // admin information
         let users = database.getUsers();
         for (let i = 0; i < users.length; i++) {
-            let msg = Object.entries(flattenObject(users[i])).map(([key, value]) => key + ':' + value).join('\n');
+            let msg = encodeURIComponent(JSON.stringify(users[i]));
             await telegram.sendMessage(id, msg);
         }
     }
-}
-
-function flattenObject(ob) {
-    let toReturn = {};
-    for (let i in ob) {
-        if (!ob.hasOwnProperty(i)) continue;
-        if ((typeof ob[i]) == 'object' && ob[i] !== null) {
-            let flatObject = flattenObject(ob[i]);
-            for (let x in flatObject) {
-                if (!flatObject.hasOwnProperty(x)) continue;
-
-                toReturn[i + '.' + x] = flatObject[x];
-            }
-        } else {
-            toReturn[i] = ob[i];
-        }
-    }
-    return toReturn;
 }
 
 async function sendHelp(message) {
