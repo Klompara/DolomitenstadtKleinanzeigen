@@ -45,7 +45,7 @@ async function sendInfo(message) {
         let interests = user.interests.length > 0 ? user.interests.reduce((acc, curr) => acc + ', ' + curr) : '';
         let msg = infotext.replace('<%interests%>', interests).replace('<%offerCount%>', offers.length);
         await telegram.sendMessage(userObj.id, msg);
-        sendAdminInfo(userObj.id);
+        await sendAdminInfo(userObj.id);
     }
 }
 
