@@ -115,11 +115,14 @@ function removeAllInterests(user) {
 }
 
 function addOfferIfNotExists(scraped) {
+    let added = false;
     for (let i = 0; i < scraped.length; i++) {
         if (offers.find(curr => curr.offerId == scraped[i].offerId) == undefined) {
-            offers.push(scraped[i])
+            offers.push(scraped[i]);
+            added = true;
         }
     }
+    return added;
 }
 
 function clearOldOffers() {

@@ -11,20 +11,21 @@ async function scrape() {
     let parsedOffers = parseOffers(offers);
     database.addOfferIfNotExists(parsedOffers);
     let response;
-    while (response == undefined || JSON.parse(response).content != '201') {
+    let added = true;
+    while ((response == undefined || JSON.parse(response).content != '201') && added) {
         response = await loadStreamHtml(parsedOffers);
         offers = getOffersFromHtml(JSON.parse(response).content);
         let newParsedOffers = parseOffers(offers);
         parsedOffers = parsedOffers.concat(newParsedOffers);
         parsedOffers = [...new Set(parsedOffers)]; // remove duplicates
-        database.addOfferIfNotExists(parsedOffers);
+        added = database.addOfferIfNotExists(parsedOffers);
     }
     console.log(`Finished scraping, found ${parsedOffers.length} offers after ${(new Date() - startTimeStamp) / 1000} seconds`);
 }
 
 function getOffersFromHtml(html) {
     let document = new JSDOM(html).window.document;
-    let offers = Array.from(document.getElementsByClassName('page__kleinanzeigen__item clearfix'));
+    let offers = Array.from(document.getElementsByClassName('article-preview__item'));// service-teaser article-preview__item__style__masonry grid-4 grid-mobile-12 grid-tablet-6 service-type-kleinanzeige'));
     return offers;
 }
 
@@ -32,9 +33,9 @@ function parseOffers(offers) {
     let parsedOffers = [];
     for (let i = 0; i < offers.length; i++) {
         let offer = offers[i];
-        if(offer.children[2].children.length == 5) { // paid offer
-            offer.children[2].removeChild(offer.children[2].children[0]);
-        }
+        //if(offer.children[2].children.length == 5) { // paid offer
+        //    offer.children[2].removeChild(offer.children[2].children[0]);
+        //}
         let newOffer = {
             offerId: getId(offer),
             title: getTitle(offer),
@@ -115,46 +116,61 @@ async function loadStartingPageHtml() {
 }
 
 function getId(offer) {
-    return offer.id.replace('kleinanzeige-', '');
+    return offer.getAttribute('data-id');
 }
 
 function getImageUrl(offer) {
-    if (offer.children[0].classList[1] == undefined) {
-        return offer.children[0].children[0].children[0].children[0].href;
+    if (offer.children[0].children[0].children[1] != undefined) {
+        return offer.children[0].children[0].children[1].href;
     } else {
         return undefined;
     }
 }
 
 function getTitle(offer) {
-    return offer.children[2].children[0].innerHTML.replace('\n', '').replace('\t', '');
+    if (offer.children[0].children.length > 1) {
+        return offer.children[0].children[1].children[0].children[0].children[0].innerHTML.replace('\n', '').replace('\t', '');
+    } else {
+        return offer.children[0].children[0].children[0].children[0].children[0].innerHTML.replace('\n', '').replace('\t', '');
+    }
 }
 
 function getDescription(offer) {
-    return offer.children[2].children[1].children[0].innerHTML;
+    if (offer.children[0].children.length > 1) {
+        return offer.children[0].children[1].children[1].children[0].innerHTML;
+    } else {
+        return offer.children[0].children[0].children[1].children[0].innerHTML;
+    }
 }
 
 function getPhone(offer) {
-    if (offer.children[2].children[1].childElementCount > 1) {
-        return offer.children[2].children[1].children[1].innerHTML;
+    if (offer.children[0].children.length > 1) {
+        return offer.children[0].children[1].children[2].children[0].children[0].innerHTML;
     } else {
-        return undefined;
+        return offer.children[0].children[0].children[2].children[0].children[0].innerHTML;
     }
 }
 
 function getUser(offer) {
-    return offer.children[2].children[2].children[1].innerHTML;
+    //return offer.children[2].children[2].children[1].innerHTML;
+    return undefined;
 }
 
 function getDate(offer) {
-    if(offer.children[2].children[2].children.length == 2) {
-        return "";
-    }
-    return offer.children[2].children[2].children[2].innerHTML;
+    //if (offer.children[2].children[2].children.length == 2) {
+    //    return "";
+    //}
+    //return offer.children[2].children[2].children[2].innerHTML;
+    return new Date().toLocaleDateString("de-DE", { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 function getType(offer) {
-    return offer.children[2].children[2].children[0].children[0].innerHTML;
+    if(offer.children[0].children[0].children[0].children[0].children.length > 0) {
+        return null;//offer.children[0].children[0].children[0].children[0].children[0].innerHTML;
+    }else{
+        return offer.children[0].children[0].children[0].children[0].innerHTML;
+    }
+    
 }
 
 module.exports.scrape = scrape;
