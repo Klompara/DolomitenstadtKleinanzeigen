@@ -33,9 +33,6 @@ function parseOffers(offers) {
     let parsedOffers = [];
     for (let i = 0; i < offers.length; i++) {
         let offer = offers[i];
-        //if(offer.children[2].children.length == 5) { // paid offer
-        //    offer.children[2].removeChild(offer.children[2].children[0]);
-        //}
         let newOffer = {
             offerId: getId(offer),
             title: getTitle(offer),
@@ -152,25 +149,20 @@ function getPhone(offer) {
 }
 
 function getUser(offer) {
-    //return offer.children[2].children[2].children[1].innerHTML;
-    return undefined;
+    return undefined; // no username since new design (20220515)
 }
 
 function getDate(offer) {
-    //if (offer.children[2].children[2].children.length == 2) {
-    //    return "";
-    //}
-    //return offer.children[2].children[2].children[2].innerHTML;
     return new Date().toLocaleDateString("de-DE", { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 function getType(offer) {
-    if(offer.children[0].children[0].children[0].children[0].children.length > 0) {
-        return null;//offer.children[0].children[0].children[0].children[0].children[0].innerHTML;
-    }else{
+    if (offer.children[0].children[0].children[0].children[0].children.length > 0) {
+        return 'Sonstiges'; // Offers with images have no type (20220515)
+    } else {
         return offer.children[0].children[0].children[0].children[0].innerHTML;
     }
-    
+
 }
 
 module.exports.scrape = scrape;
