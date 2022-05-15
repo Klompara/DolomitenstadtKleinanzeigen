@@ -10,7 +10,7 @@ async function sendOffer(userId, offer) {
 }
 
 function buildMessage(offer) {
-    let msg =
+    /*let msg =
         `*${offer.title}*
 ${offer.description}
 
@@ -18,6 +18,13 @@ _${offer.phone || ''}_
 Benutzer: _${offer.originalPoster}_
 ${offer.createDate}
 [Link](https://www.dolomitenstadt.at/kleinanzeigen/#kleinanzeige-${offer.offerId})
+`;*/
+    let msg = 
+        `*${offer.title}*
+${offer.description}
+
+_${offer.phone || ''}_
+${offer.createDate}
 `;
     return msg;
 }
