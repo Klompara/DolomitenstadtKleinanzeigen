@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.post('/' + process.env.BOT_KEY, async (req, res) => {
     if (req.body == undefined || res.body.message == undefined) {
         res.send(req.body);
+        return;
     }
 
     let message = req.body.message;
